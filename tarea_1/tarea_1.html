@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego</title>
+    <link rel="stylesheet" href="./estilos.css">
+</head>
+<body>
+    <main>
+        <div class="titulo">Bienvenidos jugadores</div>
+    </main>
+        <h1>Batalla de Dados </h1>
+        <p id="jugador1"></p>
+        <p id="jugador2"></p>
+        <p id="resultado"></p>
+
+        <button onclick="jugarRonda()">Lanzar Dados</button>
+
+    <script>
+        let player1= {
+            name:'', 
+            health:10
+        }
+
+        let player2= {
+            name:'', 
+            health:10
+        }
+        player1.name = prompt("Ingrese el nombre del jugador 1")
+        player2.name = prompt("Ingrese el nombre del jugador 2")
+
+        actualizarPantalla()
+
+        function lanzarDado() {
+            return Math.floor(Math.random() * 6) + 1
+        }
+
+        function jugarRonda() {
+            if (player1.health <= 0 || player2.health <= 0) {
+                alert("El juego ya terminó")
+                return
+            }
+
+            let dado1 = lanzarDado()
+            let dado2 = lanzarDado()
+            let mensaje = `${player1.name} sacó ${dado1} & ${player2.name} sacó ${dado2}`
+
+            if (dado1 > dado2) {
+                player2.health -= (dado1 - dado2) 
+                if (player2.health < 0) player2.health = 0
+                mensaje += ` → ${player2.name} pierde ${dado1 - dado2} vidas`
+            } else if (dado2 > dado1) {
+                player1.health -= (dado2 - dado1)
+                if (player1.health < 0) player1.health = 0
+                mensaje += ` → ${player1.name} pierde ${dado2 - dado1} vidas`
+            } else {
+                mensaje += " → Empate, nadie pierde vidas"
+            }
+
+            document.getElementById("resultado").textContent = mensaje
+            actualizarPantalla()
+
+            if (player1.vidas <= 0) {
+                alert(`${player2.name} gana`)
+            } else if (player2.health <= 0) {
+                alert(`${player1.name} gana`)
+            }
+        }
+
+        function actualizarPantalla() {
+            document.getElementById("jugador1").innerHTML = `${player1.name} → ${"❤️".repeat(player1.health)} (${player1.health} vidas)`
+            document.getElementById("jugador2").innerHTML = `${player2.name} → ${"❤️".repeat(player2.health)} (${player2.health} vidas)`
+}
+
+    </script>
+</body>
