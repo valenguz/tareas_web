@@ -36,9 +36,17 @@
             return Math.floor(Math.random() * 6) + 1
         }
 
+
         function jugarRonda() {
+            // Si el juego ya terminó
             if (player1.health <= 0 || player2.health <= 0) {
-                alert("El juego ya terminó")
+                if (player1.health <= 0 && player2.health <= 0) {
+                    alert("Empate, ambos sin vidas")
+                } else if (player1.health <= 0) {
+                    alert(`${player1.name} perdió \n${player2.name} gano`)
+                } else if (player2.health <= 0) {
+                    alert(`${player2.name} perdió \n${player1.name} gano `)
+                }
                 return
             }
 
