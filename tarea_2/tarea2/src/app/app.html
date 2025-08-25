@@ -1,0 +1,16 @@
+<main>
+  <div class="titulo">Bienvenidos jugadores</div>
+</main>
+
+<h1>Batalla de Dados</h1>
+
+@if (juegoIniciado()) {
+  <p>{{ player1().name }} → {{ generarCorazones(player1().health) }} ({{ player1().health }} vidas)</p>
+  <p>{{ player2().name }} → {{ generarCorazones(player2().health) }} ({{ player2().health }} vidas)</p>
+  <p id="resultado">{{ resultado() }}</p>
+
+  <button (click)="jugarRonda()">Lanzar Dados</button>
+  <button (click)="reiniciarJuego()" class="reiniciar-btn">Reiniciar Juego</button>
+} @else {
+  <p>Cargando juego...</p>
+}
